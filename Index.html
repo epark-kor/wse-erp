@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 웹앱 대시보드</title>
+    <style>
+        /* 전체 화면 설정 */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh; /* 화면 전체 높이 사용 */
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        /* 왼쪽 메뉴바 (사이드바) 설정 */
+        .sidebar {
+            width: 250px; /* 메뉴바 너비 */
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* 메뉴에 마우스를 올렸을 때 효과 */
+        .sidebar button:hover {
+            background-color: #34495e;
+        }
+
+        /* 활성화된 메뉴 표시 */
+        .sidebar button.active {
+            background-color: #1abc9c;
+        }
+
+        /* 오른쪽 메인 콘텐츠 영역 */
+        .content {
+            flex: 1; /* 남은 공간을 모두 차지 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* iframe (웹앱이 표시되는 창) 설정 */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* 테두리 없애기 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h2>웹앱 메뉴</h2>
+        <button class="menu-btn active" onclick="changeWebApp(this, 'https://script.google.com/macros/s/여기에_첫번째_웹앱_주소입력/exec')">메뉴 1 (웹앱 A)</button>
+        <button class="menu-btn" onclick="changeWebApp(this, 'https://script.google.com/macros/s/여기에_두번째_웹앱_주소입력/exec')">메뉴 2 (웹앱 B)</button>
+        <button class="menu-btn" onclick="changeWebApp(this, 'https://script.google.com/macros/s/여기에_세번째_웹앱_주소입력/exec')">메뉴 3 (웹앱 C)</button>
+    </div>
+
+    <div class="content">
+        <iframe id="webapp-frame" src="https://script.google.com/macros/s/여기에_첫번째_웹앱_주소입력/exec"></iframe>
+    </div>
+
+    <script>
+        // 메뉴를 클릭했을 때 iframe 주소를 바꿔주는 자바스크립트 함수
+        function changeWebApp(buttonElement, url) {
+            // 1. iframe의 src 주소를 클릭한 메뉴의 URL로 변경
+            document.getElementById('webapp-frame').src = url;
+
+            // 2. 모든 버튼에서 'active' 클래스 제거
+            const buttons = document.querySelectorAll('.menu-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // 3. 클릭한 버튼에만 'active' 클래스 추가 (선택된 메뉴 색상 변경)
+            buttonElement.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
